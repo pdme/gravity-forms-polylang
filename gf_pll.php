@@ -7,6 +7,7 @@ class GF_PLL {
 
 
   private $translatable_properties;
+  private $form;
   
   
   public function __construct() {
@@ -56,9 +57,10 @@ class GF_PLL {
 
     $forms = GFAPI::get_forms();
     foreach ($forms as $form) {
+      $this->form = $form;
       $this->iterate($form, function($value, $key) {
         if($this->is_translatable($key, $value)) {
-          pll_register_string($key, $value, 'Form');
+          pll_register_string($key, $value, 'Form: <em>' . $this->form['title'] . '</em>');
         }
       });
     }
