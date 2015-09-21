@@ -2,8 +2,12 @@
 
 if(!class_exists('GF_PLL')) :
 
+
 class GF_PLL {
 
+
+  private $translatable_properties;
+  
   
   public function __construct() {
 
@@ -28,17 +32,32 @@ class GF_PLL {
   }
 
 
+  private function iterate($value, $key, $callback = null) {
+
+    if(!$callback && is_callable($key)) $callback = $key;
+
+    if(is_array($value) || is_object($value)) {
+      foreach ($value as $key => $new_value) {
+        $this->iterate($new_value, $key, $callback);
+      }
+    } else {
+      $callback($value, $key);
+    }
+
+  }
+
+
   public function register_strings() {
 
     if(!class_exists('GFAPI') || !function_exists('pll_register_string')) return;
 
     $forms = GFAPI::get_forms();
     foreach ($forms as $form) {
-      array_walk_recursive($form, function($value, $key, $form) {
+      $this->iterate($form, function($value, $key) {
         if($this->is_translatable($key)) {
-          pll_register_string($key, $value, 'Form: "' . $form['title'] . '"');
+          pll_register_string($key, $value, 'Form');
         }
-      }, $form);
+      });
     }
 
   }
