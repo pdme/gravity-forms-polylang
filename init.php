@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Gravity Forms Polylang
-Plugin URI:  
+Plugin URI:  https://github.com/pdme/gravity-forms-polylang
 Description: Add Gravity Forms form title, description, field labels, etc, to Polylang string translations
 Version:     0.1
 Author:      Philip Ebels
-Author URI:  
+Author URI:  https://github.com/pdme
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */

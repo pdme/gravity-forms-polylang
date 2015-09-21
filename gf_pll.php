@@ -25,9 +25,12 @@ class GF_PLL {
   }
 
 
-  private function is_translatable($key) {
+  private function is_translatable($key, $value) {
 
-    return $key && in_array($key, $this->translatable_properties);
+    return 
+      $key && 
+      in_array($key, $this->translatable_properties) &&
+      is_string($value);
 
   }
 
@@ -54,7 +57,7 @@ class GF_PLL {
     $forms = GFAPI::get_forms();
     foreach ($forms as $form) {
       $this->iterate($form, function($value, $key) {
-        if($this->is_translatable($key)) {
+        if($this->is_translatable($key, $value)) {
           pll_register_string($key, $value, 'Form');
         }
       });
@@ -67,7 +70,7 @@ class GF_PLL {
 
     if(function_exists('pll__')) {
       $this->iterate($form, function(&$value, $key) {
-        if($this->is_translatable($key)) {
+        if($this->is_translatable($key, $value)) {
           $value = pll__($value);
         }
       });
