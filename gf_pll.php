@@ -32,13 +32,13 @@ class GF_PLL {
   }
 
 
-  private function iterate($value, $key, $callback = null) {
+  private function iterate(&$value, $key, $callback = null) {
 
     if(!$callback && is_callable($key)) $callback = $key;
 
     if(is_array($value) || is_object($value)) {
-      foreach ($value as $key => $new_value) {
-        $this->iterate($new_value, $key, $callback);
+      foreach ($value as $new_key => &$new_value) {
+        $this->iterate($new_value, $new_key, $callback);
       }
     } else {
       $callback($value, $key);
@@ -66,7 +66,7 @@ class GF_PLL {
   public function translate_strings($form) {
 
     if(function_exists('pll__')) {
-      array_walk_recursive($form, function(&$value, $key) {
+      $this->iterate($form, function(&$value, $key) {
         if($this->is_translatable($key)) {
           $value = pll__($value);
         }
