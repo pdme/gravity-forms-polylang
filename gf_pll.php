@@ -38,7 +38,9 @@ class GF_PLL {
 
   private function iterate(&$value, $key, $callback = null) {
 
-    if(!$callback && is_callable($key)) $callback = $key;
+    if(!$callback && is_callable($key)) {
+      $callback = $key;
+    }
 
     if(is_array($value) || is_object($value)) {
       foreach ($value as $new_key => &$new_value) {
@@ -60,7 +62,8 @@ class GF_PLL {
       $this->form = $form;
       $this->iterate($form, function($value, $key) {
         if($this->is_translatable($key, $value)) {
-          pll_register_string($key, $value, "Form #{$this->form['id']}: <em>{$this->form['title']}</em>");
+          $group = "Form #{$this->form['id']}: <em>{$this->form['title']}</em>";
+          pll_register_string($key, $value, $group);
         }
       });
     }
