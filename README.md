@@ -1,4 +1,4 @@
-=== Plugin Name ===
+Gravity Forms Polylang
 Contributors: pdme
 Tags: Gravity Forms, Polylang, multilingual
 Requires at least: 3.0.1
