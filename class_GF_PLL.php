@@ -36,7 +36,7 @@ class GF_PLL {
   }
 
 
-  private function iterate(&$value, $key, $callback = null) {
+  private function iterate_form(&$value, $key, $callback = null) {
 
     if(!$callback && is_callable($key)) {
       $callback = $key;
@@ -44,7 +44,7 @@ class GF_PLL {
 
     if(is_array($value) || is_object($value)) {
       foreach ($value as $new_key => &$new_value) {
-        $this->iterate($new_value, $new_key, $callback);
+        $this->iterate_form($new_value, $new_key, $callback);
       }
     } else {
       $callback($value, $key);
@@ -60,7 +60,7 @@ class GF_PLL {
     $forms = GFAPI::get_forms();
     foreach ($forms as $form) {
       $this->form = $form;
-      $this->iterate($form, function($value, $key) {
+      $this->iterate_form($form, function($value, $key) {
         if($this->is_translatable($key, $value)) {
           $name = $key;
           $group = "Form #{$this->form['id']}: {$this->form['title']}";
@@ -75,7 +75,7 @@ class GF_PLL {
   public function translate_strings($form) {
 
     if(function_exists('pll__')) {
-      $this->iterate($form, function(&$value, $key) {
+      $this->iterate_form($form, function(&$value, $key) {
         if($this->is_translatable($key, $value)) {
           $value = pll__($value);
         }
