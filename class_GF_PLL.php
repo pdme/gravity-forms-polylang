@@ -6,13 +6,13 @@ if(!class_exists('GF_PLL')) :
 class GF_PLL {
 
 
-  private $translatable_properties;
+  private $whitelist;
   private $form;
   
   
   public function __construct() {
 
-    $this->translatable_properties = array(
+    $this->whitelist = array(
       'title', 
       'description', 
       'text', 
@@ -30,7 +30,7 @@ class GF_PLL {
 
     return 
       $key && 
-      in_array($key, $this->translatable_properties) &&
+      in_array($key, $this->whitelist) &&
       is_string($value);
 
   }
@@ -63,7 +63,7 @@ class GF_PLL {
       $this->iterate($form, function($value, $key) {
         if($this->is_translatable($key, $value)) {
           $name = $key;
-          $group = "Form #{$this->form['id']}: <em>{$this->form['title']}</em>";
+          $group = "Form #{$this->form['id']}: {$this->form['title']}";
           pll_register_string($name, $value, $group);
         }
       });
