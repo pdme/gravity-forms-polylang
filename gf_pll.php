@@ -62,8 +62,9 @@ class GF_PLL {
       $this->form = $form;
       $this->iterate($form, function($value, $key) {
         if($this->is_translatable($key, $value)) {
+          $name = $key;
           $group = "Form #{$this->form['id']}: <em>{$this->form['title']}</em>";
-          pll_register_string($key, $value, $group);
+          pll_register_string($name, $value, $group);
         }
       });
     }
@@ -82,6 +83,7 @@ class GF_PLL {
     }
 
     return $form;
+
   }
 
 
