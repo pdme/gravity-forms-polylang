@@ -14,7 +14,7 @@ if(!defined('ABSPATH')) exit;
 
 if(!class_exists('GF_PLL_Initialize')) :
 
-include 'gf_pll.php';
+include 'class_GF_PLL.php';
 
 class GF_PLL_Initialize {
   public static function register_strings() {
