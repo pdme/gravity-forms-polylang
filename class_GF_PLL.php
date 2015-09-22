@@ -7,6 +7,7 @@ class GF_PLL {
 
 
   private $whitelist;
+  private $blacklist;
   private $form;
   
   
@@ -21,6 +22,10 @@ class GF_PLL {
       'defaultValue', 
       'errorMessage',
       'placeholder'
+    );
+
+    $this->blacklist = array(
+      'notifications'
     );
 
   }
@@ -44,10 +49,14 @@ class GF_PLL {
 
     if(is_array($value) || is_object($value)) {
       foreach ($value as $new_key => &$new_value) {
-        $this->iterate_form($new_value, $new_key, $callback);
+        if(!in_array($new_key, $this->blacklist)) {
+          $this->iterate_form($new_value, $new_key, $callback);
+        }
       }
     } else {
-      $callback($value, $key);
+      if($this->is_translatable($key, $value)) {
+        $callback($value, $key);
+      }
     }
 
   }
@@ -61,11 +70,9 @@ class GF_PLL {
     foreach ($forms as $form) {
       $this->form = $form;
       $this->iterate_form($form, function($value, $key) {
-        if($this->is_translatable($key, $value)) {
-          $name = $key;
-          $group = "Form #{$this->form['id']}: {$this->form['title']}";
-          pll_register_string($name, $value, $group);
-        }
+        $name = $key;
+        $group = "Form #{$this->form['id']}: {$this->form['title']}";
+        pll_register_string($name, $value, $group);
       });
     }
 
@@ -76,9 +83,7 @@ class GF_PLL {
 
     if(function_exists('pll__')) {
       $this->iterate_form($form, function(&$value, $key) {
-        if($this->is_translatable($key, $value)) {
-          $value = pll__($value);
-        }
+        $value = pll__($value);
       });
     }
 
