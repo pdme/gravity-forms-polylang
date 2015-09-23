@@ -17,9 +17,9 @@ class GF_PLL {
     $this->whitelist = array(
       'title', 
       'description', 
-      'text', 
-      'content', 
-      'message', 
+      'text',
+      'content',
+      'message',
       'defaultValue', 
       'errorMessage',
       'placeholder',
