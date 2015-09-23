@@ -8,6 +8,7 @@ class GF_PLL {
 
   private $whitelist;
   private $blacklist;
+  private $registered_strings;
   private $form;
   
   
@@ -21,12 +22,14 @@ class GF_PLL {
       'message', 
       'defaultValue', 
       'errorMessage',
-      'placeholder'
+      'placeholder',
+      'label',
+      'value'
     );
 
-    $this->blacklist = array(
-      'notifications'
-    );
+    $this->blacklist = array();
+
+    $this->registered_strings = array();
 
   }
 
@@ -36,7 +39,8 @@ class GF_PLL {
     return 
       $key && 
       in_array($key, $this->whitelist) &&
-      is_string($value);
+      is_string($value) &&
+      !in_array($value, $this->registered_strings);
 
   }
 
@@ -49,7 +53,7 @@ class GF_PLL {
 
     if(is_array($value) || is_object($value)) {
       foreach ($value as $new_key => &$new_value) {
-        if(!in_array($new_key, $this->blacklist)) {
+        if(!(in_array($new_key, $this->blacklist) && !is_numeric($new_key))) {
           $this->iterate_form($new_value, $new_key, $callback);
         }
       }
@@ -70,9 +74,10 @@ class GF_PLL {
     foreach ($forms as $form) {
       $this->form = $form;
       $this->iterate_form($form, function($value, $key) {
-        $name = $key;
+        $name = ''; // todo: suitable naming
         $group = "Form #{$this->form['id']}: {$this->form['title']}";
         pll_register_string($name, $value, $group);
+        $this->registered_strings[] = $value;
       });
     }
 
