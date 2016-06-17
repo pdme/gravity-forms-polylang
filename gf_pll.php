@@ -30,6 +30,7 @@ class GF_PLL_Initialize {
 
 add_action('gform_loaded', array('GF_PLL_Initialize', 'register_strings'));
 add_filter('gform_pre_render', array('GF_PLL_Initialize', 'translate_strings'));
+add_filter('gform_pre_process', array('GF_PLL_Initialize', 'translate_strings'));
 
 endif;
 
