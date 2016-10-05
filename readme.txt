@@ -19,6 +19,9 @@ No installation required.
 
 == Changelog ==
 
+= 0.3 =
+* Added translation of confirmation message
+
 = 0.2 =
 * Fixed bug that would prevent some fields from showing up
 * Removed notifications from blacklist

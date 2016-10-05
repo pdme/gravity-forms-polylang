@@ -3,7 +3,7 @@
 Plugin Name: Integrate Gravity Forms + Polylang
 Plugin URI:  https://github.com/pdme/gravity-forms-polylang
 Description: Add form titles, descriptions, field labels, etc, to Polylang string translations
-Version:     0.2
+Version:     0.3
 Author:      Philip Ebels
 Author URI:  https://github.com/pdme
 License:     GPL2
