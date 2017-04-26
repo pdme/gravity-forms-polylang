@@ -24,7 +24,8 @@ class GF_PLL {
       'errorMessage',
       'placeholder',
       'label',
-      'value'
+      'value',
+      'subject'
     );
 
     $this->blacklist = array();
