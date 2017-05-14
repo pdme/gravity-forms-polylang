@@ -73,6 +73,7 @@ class GF_PLL {
     $forms = GFAPI::get_forms();
     foreach ($forms as $form) {
       $this->form = $form;
+      $this->registered_strings = array();
       $this->iterate_form($form, function($value, $key) {
         $name = ''; // todo: suitable naming
         $group = "Form #{$this->form['id']}: {$this->form['title']}";
