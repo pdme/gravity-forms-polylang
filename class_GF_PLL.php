@@ -24,6 +24,7 @@ class GF_PLL {
       'errorMessage',
       'placeholder',
       'label',
+      'customLabel',
       'value',
       'subject'
     );
